@@ -1,0 +1,67 @@
+/* Fallback theme utilities for custom Tailwind token classes. */
+
+html,
+body {
+	background-color: #121212;
+	color: #ffffff;
+}
+
+.bg-bg {
+	background-color: #121212 !important;
+}
+
+.bg-card {
+	background-color: #1c1b1b !important;
+}
+
+.bg-cardLight {
+	background-color: #2a2a2a !important;
+}
+
+.border-border {
+	border-color: #404040 !important;
+}
+
+.text-text {
+	color: #e5e5e5 !important;
+}
+
+.text-textMuted {
+	color: #808080 !important;
+}
+
+.text-textSecondary {
+	color: #b0b0b0 !important;
+}
+
+.bg-accent {
+	background-color: #e50914 !important;
+}
+
+.hover\:bg-accentHover:hover {
+	background-color: #b3050d !important;
+}
+
+.hover\:bg-card:hover {
+	background-color: #1c1b1b !important;
+}
+
+.hover\:bg-card\/50:hover {
+	background-color: rgba(28, 27, 27, 0.5) !important;
+}
+
+.hover\:bg-card\/70:hover {
+	background-color: rgba(28, 27, 27, 0.7) !important;
+}
+
+.hover\:border-accent:hover {
+	border-color: #e50914 !important;
+}
+
+.focus\:border-accent:focus {
+	border-color: #e50914 !important;
+}
+
+.placeholder\:text-textMuted::placeholder {
+	color: #808080 !important;
+}
