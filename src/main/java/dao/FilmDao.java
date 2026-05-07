@@ -15,10 +15,25 @@ public class FilmDao {
 	Film oneFilm = null;
 	Connection conn = null;
 	Statement stmt = null;
-	String user = "adelekei";
-	String password = "gacEiblad9";
-	String url = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/" + user
-			+ "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+//	String user = "adelekei";
+//	String password = "gacEiblad9";
+//	String url = "jdbc:mysql://mudfoot.doc.stu.mmu.ac.uk:6306/" + user
+//			+ "?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC";
+//	
+	
+	
+    private final String dbUrl = "jdbc:mysql://35.184.162.65:3306/";
+    private final String dbName = "mmu"; 
+    private final String password = "Ayooluwa1."; 
+    private final String user = "root"; 
+    
+    private final String url = dbUrl + dbName
+            + "?useSSL=false"
+            + "&allowPublicKeyRetrieval=true"
+            + "&enabledTLSProtocols=TLSv1.2"
+            + "&serverTimezone=UTC";
+    
+    
 	String preferredTable = System.getProperty("films.table", "films");
 
 	public FilmDao() {

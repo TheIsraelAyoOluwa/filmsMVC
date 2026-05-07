@@ -81,7 +81,7 @@ public class FilmsServlet extends HttpServlet {
 			}
 
 			if (shouldRedirectToHome(request)) {
-				response.sendRedirect(request.getContextPath() + "/home");
+				redirectToHomePreservingFormat(request, response);
 				return;
 			}
 
@@ -104,7 +104,7 @@ public class FilmsServlet extends HttpServlet {
 			}
 
 			if (shouldRedirectToHome(request)) {
-				response.sendRedirect(request.getContextPath() + "/home");
+				redirectToHomePreservingFormat(request, response);
 				return;
 			}
 
@@ -124,7 +124,7 @@ public class FilmsServlet extends HttpServlet {
 		}
 
 		if (shouldRedirectToHome(request)) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			redirectToHomePreservingFormat(request, response);
 			return;
 		}
 
@@ -289,5 +289,15 @@ public class FilmsServlet extends HttpServlet {
 
 	private boolean isDeleteRequest(HttpServletRequest request) {
 		return "delete".equalsIgnoreCase(request.getParameter("action"));
+	}
+
+	private void redirectToHomePreservingFormat(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String format = request.getParameter("format");
+		String target = request.getContextPath() + "/home";
+		if (!isBlank(format)) {
+			target = target + "?format=" + format.trim().toLowerCase();
+		}
+		response.sendRedirect(target);
 	}
 }

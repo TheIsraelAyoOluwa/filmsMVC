@@ -85,7 +85,7 @@ public class EditFilmController extends HttpServlet {
 
 			// Redirect to home on successful delete
 			if ("home".equalsIgnoreCase(request.getParameter("redirect"))) {
-				response.sendRedirect(request.getContextPath() + "/home");
+				redirectToHomePreservingFormat(request, response);
 				return;
 			}
 		}
@@ -114,7 +114,7 @@ public class EditFilmController extends HttpServlet {
 			}
 
 			if ("home".equalsIgnoreCase(request.getParameter("redirect"))) {
-				response.sendRedirect(request.getContextPath() + "/home");
+				redirectToHomePreservingFormat(request, response);
 				return;
 			}
 
@@ -142,7 +142,7 @@ public class EditFilmController extends HttpServlet {
 		}
 
 		if ("home".equalsIgnoreCase(request.getParameter("redirect"))) {
-			response.sendRedirect(request.getContextPath() + "/home");
+			redirectToHomePreservingFormat(request, response);
 			return;
 		}
 
@@ -182,5 +182,15 @@ public class EditFilmController extends HttpServlet {
 
 	private boolean isBlank(String value) {
 		return value == null || value.trim().isEmpty();
+	}
+
+	private void redirectToHomePreservingFormat(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		String format = request.getParameter("format");
+		String target = request.getContextPath() + "/home";
+		if (!isBlank(format)) {
+			target = target + "?format=" + format.trim().toLowerCase();
+		}
+		response.sendRedirect(target);
 	}
 }

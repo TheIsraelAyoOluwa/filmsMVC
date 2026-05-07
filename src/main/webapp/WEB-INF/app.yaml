@@ -1,0 +1,11 @@
+runtime: java
+env: flex
+
+# This tells GCP to use a machine that can run your WAR
+runtime_config:
+  operating_system: "ubuntu22"
+  runtime_version: "21" # Change to "17" if you downgraded Eclipse
+
+handlers:
+- url: /.*
+  script: this field is required but ignored for java

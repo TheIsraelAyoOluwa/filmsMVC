@@ -1,4 +1,6 @@
 // API Format helper
+const API_FORMAT_STORAGE_KEY = 'filmsApi.format';
+
 function getQueryParam(name) {
   const params = new URLSearchParams(window.location.search);
   return params.get(name);
@@ -11,12 +13,46 @@ function setQueryParam(name, value) {
 }
 
 function getSelectedApiFormat() {
-  return (getQueryParam('format') || 'json').toLowerCase();
+  const fromQuery = getQueryParam('format');
+  if (fromQuery) return fromQuery.toLowerCase();
+
+  try {
+    const fromStorage = localStorage.getItem(API_FORMAT_STORAGE_KEY);
+    if (fromStorage) return fromStorage.toLowerCase();
+  } catch (e) {
+    // ignore storage access failures
+  }
+
+  return 'json';
+}
+
+function persistApiFormat(format) {
+  try {
+    localStorage.setItem(API_FORMAT_STORAGE_KEY, String(format || '').toLowerCase());
+  } catch (e) {
+    // ignore storage access failures
+  }
+}
+
+function ensureFormatFieldOnForms(format) {
+  const forms = Array.from(document.querySelectorAll('form'));
+  forms.forEach(form => {
+    let formatInput = form.querySelector('input[name="format"]');
+    if (!formatInput) {
+      formatInput = document.createElement('input');
+      formatInput.type = 'hidden';
+      formatInput.name = 'format';
+      form.appendChild(formatInput);
+    }
+    formatInput.value = format;
+  });
 }
 
 document.addEventListener('DOMContentLoaded', function() {
   const select = document.getElementById('apiFormatSelect');
   const current = getSelectedApiFormat();
+  persistApiFormat(current);
+  ensureFormatFieldOnForms(current);
 
   if (select) {
     // initialize select value
@@ -29,6 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     select.addEventListener('change', function(e) {
       const val = e.target.value;
+      persistApiFormat(val);
       setQueryParam('format', val);
     });
   }
